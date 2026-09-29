@@ -1,0 +1,4 @@
+apiVersion: v2
+name: sim-argo-appproject
+description: SIMULATION stand-in for helm-charts/argo-appproject
+version: 0.1.0

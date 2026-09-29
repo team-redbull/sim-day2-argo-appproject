@@ -1,0 +1,21 @@
+# Namespaced objects only (APPLY-UPI.md check 7): one AppProject, in the
+# release namespace (openshift-gitops on A, openshift-gitops-upi on B).
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: {{ required "group is required" .Values.group }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  description: 'SIMULATION — team {{ .Values.group }}'
+  sourceRepos:
+    - '*'
+  destinations:
+    - name: '*'
+      server: '*'
+      namespace: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  # The team's apps on A live in gitops-<group>, outside A's own namespace.
+  sourceNamespaces:
+    - gitops-{{ .Values.group }}
